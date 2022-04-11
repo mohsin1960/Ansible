@@ -1,0 +1,5 @@
+ - name: add ssh key for Ali
+   tags: always
+   authorized_key:
+     user: ali
+     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeNbQ4V7DeZa0uu0Owo+/EnSNo3gMk97+bY26czMea+ ansfinal"

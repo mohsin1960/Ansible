@@ -1,0 +1,16 @@
+- name: start apache2
+  tags: apache
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: copy default html file for site
+  tags: site
+  copy:
+    src: default_site.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+

@@ -1,0 +1,55 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+ 
+  - name: Install php (Ubuntu)
+    tags: always
+    apt:
+      name: 
+      -  libapache2-mod-php
+
+
+- hosts: db_server
+  become: true
+  tasks:
+  
+  - name: Install Apache (ubuntu)
+    tags: apache2
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+
+- hosts: db_server
+  become: true
+  tasks:
+
+  - name: Install MariaDb Package (Ubuntu)
+    apt:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+html>
+
+  <title> Website Test </title>
+
+ <body>
+  <p>Ansible is Awsome!!</p>
+
+ </body>
+
+</html>
+
+
+  - name: copy default html file for site
+    tags: site
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644

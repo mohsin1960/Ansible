@@ -1,0 +1,48 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: copy default html file for site
+    tags: site
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: Install unzip
+    package: 
+      name: unzip
+
+  - name: install terraform
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/1.1.8/terraform_1.1.8_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      owner: root
+      group: root
+      mode: 7777
+
+  - name: start apache2
+    tags: apache
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+
+  - name: Create Ali User
+    tags: always
+    user:
+      name: ali
+      group: root
+
+  - name: add ssh key for Ali
+    tags: always
+    authorized_key:
+      user: 
+        name: ali
+        key: 
+
