@@ -33,9 +33,23 @@
       state: started
       enabled: yes
 
+  - name: Create Ali User
+    tags: always
+    user:
+      name: ali
+      group: root
+
   - name: add ssh key for Ali
     tags: always
     authorized_key:
       user: ali
       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeNbQ4V7DeZa0uu0Owo+/EnSNo3gMk97+bY26czMea+ ansfinal"
 
+  - name: add sudoers file for Ali
+    tags: always
+    copy:
+      src: sudoer_ali
+      dest: /etc/sudoers.d/ali
+      owner: root
+      group: root
+      mode: 0440
